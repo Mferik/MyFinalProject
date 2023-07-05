@@ -27,7 +27,12 @@ namespace DataAccess.Concrete.EntityFramework
 
         public void Delete(Product entity)
         {
-            throw new NotImplementedException();
+            using (NorthwindContext context = new NorthwindContext()) //using içerisine yazdığın nesneler using bitti an Garbage Collector gelir
+            {
+                var deletedEntity = context.Entry(entity); //referansı yakala
+                deletedEntity.State = EntityState.Deleted; //silinecek nesne
+                context.SaveChanges(); //ekle ve kaydet
+            }
         }
 
         public Product Get(Expression<Func<Product, bool>> filter)
