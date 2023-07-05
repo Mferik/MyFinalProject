@@ -15,7 +15,7 @@ namespace DataAccess.Abstract
     //new(): new'lenebilir olabilir. ---IEntity newlenemeyeceği için koyamayız.
     public interface IEntityRepository<T> where T:class,IEntity,new() //Generic
     {
-        List<T> GetAll(Expression<Func<T, bool>> filter = null);//Filtreleme yapmamı sağlar
+        List<T> GetAll(Expression<Func<T, bool>>? filter = null);//Filtreleme yapmamı sağlar
         T Get(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Update(T entity);
