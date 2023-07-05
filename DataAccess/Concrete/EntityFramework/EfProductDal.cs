@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
+    //NuGet
     public class EfProductDal : IProductDAL
     {
-        //NuGet
+        
         public void Add(Product entity)
         {
             throw new NotImplementedException();
