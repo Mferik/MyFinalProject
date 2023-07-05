@@ -47,7 +47,12 @@ namespace DataAccess.Concrete.EntityFramework
 
         public void Update(Product entity)
         {
-            throw new NotImplementedException();
+            using (NorthwindContext context = new NorthwindContext()) //using içerisine yazdığın nesneler using bitti an Garbage Collector gelir
+            {
+                var updatedEntity = context.Entry(entity); //referansı yakala
+                updatedEntity.State = EntityState.Modified; //güncellenecek nesne
+                context.SaveChanges(); //ekle ve kaydet
+            }
         }
     }
 }
