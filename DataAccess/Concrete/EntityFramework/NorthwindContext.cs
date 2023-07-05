@@ -14,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Sql servere bağlanma
-            optionsBuilder.UseSqlServer(@"Server=MFE\SQLEXPRESS;Database=Northwind;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=MFE\SQLEXPRESS;Database=Northwind;Trusted_Connection=true;TrustServerCertificate=True ");
         }
         //Hangi class'ım hangi tabloya eş
         public DbSet<Product> Products { get; set; }
