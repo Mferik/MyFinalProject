@@ -39,6 +39,12 @@ namespace DataAccess.Concrete.InMemory
             return _products;
         }
 
+        public List<Product> GetAllByCategory(int categoryId)
+        {
+            //where koşulu içindeki şarta uyan elemanları yeni bir liste haline getirir ve döndürür
+          return _products.Where(p=>p.CategoryId == categoryId).ToList();
+        }
+
         public void Update(Product product)
         {
             //Güncellenecek referansı buluyorum. Gönderdiğim ürün id'sine sahip ürünü bul
