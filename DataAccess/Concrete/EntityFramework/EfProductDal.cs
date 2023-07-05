@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,13 @@ namespace DataAccess.Concrete.EntityFramework
         
         public void Add(Product entity)
         {
-            throw new NotImplementedException();
+            //IDisposable pattern implementation of c#
+            using (NorthwindContext context = new NorthwindContext()) //using içerisine yazdığın nesneler using bitti an Garbage Collector gelir
+            {
+                var addedEntity = context.Entry(entity); //referansı yakala
+                addedEntity.State = EntityState.Added; //eklenecek nesne
+                context.SaveChanges(); //ekle ve kaydet
+            }
         }
 
         public void Delete(Product entity)
