@@ -10,9 +10,15 @@ namespace Core.Utilities.Results
     {
 
 
-        public Result(bool success, string message)
+        public Result(bool success, string message):this(success) //İki constructor da çalışır
+        {
+            Message = message;
+            
+        }
+        public Result(bool success)
         {
 
+            Success = success;
         }
 
         public bool Success { get; }
