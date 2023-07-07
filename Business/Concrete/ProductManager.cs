@@ -24,7 +24,7 @@ namespace Business.Concrete
         {
             //business codes
            _productDal.Add(product);
-            return new Result();
+            return new Result(); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
         }
 
         public List<Product> GetAll()
