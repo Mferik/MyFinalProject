@@ -33,10 +33,10 @@ namespace Business.Concrete
            return new SuccessResult(Messages.ProductAdded);
         }
 
-        public List<Product> GetAll()
+        public IDataResult<List<Product>> GetAll()
         {
             //İş Kodları
-            return _productDal.GetAll();
+            return new DataResult(_productDal.GetAll());
         }
 
         public List<Product> GetAllByCategoryId(int id)
