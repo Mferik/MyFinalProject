@@ -36,7 +36,7 @@ namespace Business.Concrete
         public IDataResult<List<Product>> GetAll()
         {
             //İş Kodları
-            return new DataResult(_productDal.GetAll());
+            return new DataResult<List<Product>>(_productDal.GetAll(),true,"Ürünler Listelendi");
         }
 
         public List<Product> GetAllByCategoryId(int id)
