@@ -1,5 +1,7 @@
 using Business.Abstract;
 using Business.Concrete;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 
 namespace WebAPI
 {
@@ -13,6 +15,7 @@ namespace WebAPI
 
             builder.Services.AddControllers();
             builder.Services.AddSingleton<IProductService,ProductManager>(); // Eðer ilk tipte bir baðýmlýlýk gösterirsen ikinci parametre karþýlýðýdýr. Arka planda bizim için new'liyor //Tüm bellekte tek bir nesne üretiyor // Ýçinde data tutmuyorsan kullanýyorsun
+            builder.Services.AddSingleton<IProductDAL,EfProductDal>(); //ProductManager IProductDAL'a baðýmlý oldugu için onun için de bir bellekte yer açtýk
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
