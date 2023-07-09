@@ -54,12 +54,12 @@ namespace Business.Concrete
             return new  SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
         }
 
-        public SuccessDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
+        public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
 
-        public SuccessDataResult<List<ProductDetailDto>> GetProductDetails()
+        public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
