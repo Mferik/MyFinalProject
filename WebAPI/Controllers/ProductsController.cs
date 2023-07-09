@@ -11,7 +11,10 @@ namespace WebAPI.Controllers
     [ApiController] /*ATTRIBUTE*/
     public class ProductsController : ControllerBase
     {
+        //IoC Container -- Inversion of Control
+        //Daha sonra kullanabilmek için bellekte referans vermek.
         private IProductService _productService;
+
         public ProductsController(IProductService productService)
         {
             _productService = productService;

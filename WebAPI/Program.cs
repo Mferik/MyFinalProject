@@ -1,3 +1,6 @@
+using Business.Abstract;
+using Business.Concrete;
+
 namespace WebAPI
 {
     public class Program
@@ -9,6 +12,8 @@ namespace WebAPI
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddSingleton<IProductService,ProductManager>(); // Eðer ilk tipte bir baðýmlýlýk gösterirsen ikinci parametre karþýlýðýdýr. Arka planda bizim için new'liyor //Tüm bellekte tek bir nesne üretiyor // Ýçinde data tutmuyorsan kullanýyorsun
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
