@@ -19,13 +19,16 @@ namespace WebAPI.Controllers
         {
             _productService = productService;
         }
+
         [HttpGet]
-        public List<Product> Get()
+        public IActionResult Get()
         {
-            
-           
             var result = _productService.GetAll();
-            return result.Data;
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
         }
     }
 }

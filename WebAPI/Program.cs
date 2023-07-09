@@ -12,7 +12,7 @@ namespace WebAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            //Autofac,Ninject,Castwindsor,StructureMap,Lightinject,DryInject --> IoC Container
             builder.Services.AddControllers();
             builder.Services.AddSingleton<IProductService,ProductManager>(); // Eðer ilk tipte bir baðýmlýlýk gösterirsen ikinci parametre karþýlýðýdýr. Arka planda bizim için new'liyor //Tüm bellekte tek bir nesne üretiyor // Ýçinde data tutmuyorsan kullanýyorsun
             builder.Services.AddSingleton<IProductDAL,EfProductDal>(); //ProductManager IProductDAL'a baðýmlý oldugu için onun için de bir bellekte yer açtýk
