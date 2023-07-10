@@ -28,13 +28,7 @@ namespace Business.Concrete
             //business codes
             //validation
 
-            var context = new FluentValidation.ValidationContext<Product>(product);
-            ProductValidator productValidator = new ProductValidator();
-            var result = productValidator.Validate(context);
-            if(!result.IsValid)
-            {
-                throw new ValidationException();
-            }
+           
 
             _productDal.Add(product);
             // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
