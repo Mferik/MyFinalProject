@@ -24,12 +24,10 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            //business codes
-            //validation
-
-            ValidationTool.Validate(new ProductValidator(), product);
+            //business code  
 
             _productDal.Add(product);
             // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
