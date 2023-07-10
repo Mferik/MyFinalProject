@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -7,6 +8,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,29 +27,29 @@ namespace Business.Concrete
         {
             //business codes
             //validation
-            if(product.UnitPrice <= 0)
+
+            var context = new FluentValidation.ValidationContext<Product>(product);
+            ProductValidator productValidator = new ProductValidator();
+            var result = productValidator.Validate(context);
+            if(!result.IsValid)
             {
-                return new ErrorResult(Messages.UnitPriceInvalid);
+                throw new ValidationException();
             }
 
-            if(product.ProductName.Length < 2)
-            {
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
-           _productDal.Add(product);
-           // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
-           return new SuccessResult(Messages.ProductAdded);
+            _productDal.Add(product);
+            // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
+            return new SuccessResult(Messages.ProductAdded);
         }
 
         public IDataResult<List<Product>> GetAll()
         {
             //İş Kodları
-            if(DateTime.Now.Hour == 01)
+            if (DateTime.Now.Hour == 01)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
 
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
@@ -57,7 +59,7 @@ namespace Business.Concrete
 
         public IDataResult<Product> GetById(int productId)
         {
-            return new  SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
