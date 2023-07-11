@@ -103,5 +103,17 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
+
+        //Kategori sayısı 15i geçtiyse yeni ürün eklemesin
+        private IResult CheckIfCategoryLimitExceded()
+        {
+            var result = _categoryService.GetAll();
+            if (result.Data.Count > 15)
+            {
+                return new ErrorResult(Messages.CategoryLimitExceded);
+
+            }
+            return new SuccessResult();
+        }
     }
 }
