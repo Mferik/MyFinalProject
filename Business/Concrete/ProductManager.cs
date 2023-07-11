@@ -4,6 +4,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -32,18 +33,16 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             //Bir kategoride en fazla 10 ürün olabilir
-
-            if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success && CheckIfProductNameExists(product.ProductName).Success);
+            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+            if (result != null)
             {
-                _productDal.Add(product);
-                // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
-                return new SuccessResult(Messages.ProductAdded);
+                return result;
             }
+            _productDal.Add(product);
+            // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
+            return new SuccessResult(Messages.ProductAdded);
 
             //business code
-
-            return new ErrorResult();
-
         }
 
         public IDataResult<List<Product>> GetAll()
