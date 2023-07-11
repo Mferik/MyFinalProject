@@ -34,7 +34,7 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             //Bir kategoride en fazla 10 ürün olabilir
-            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId),CheckIfCategoryLimitExceded());
             if (result != null)
             {
                 return result;
