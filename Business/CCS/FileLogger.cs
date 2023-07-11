@@ -11,7 +11,15 @@ namespace Business.CCS
     {
         public void Log()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Dosyaya loglandı");
+        }
+    }
+
+    public class DatabaseLogger : ILogger
+    {
+        public void Log()
+        {
+            Console.WriteLine("Veritabanına loglandı");
         }
     }
 }
