@@ -21,11 +21,11 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDAL _productDal; //dependency injection
-        
+
         public ProductManager(IProductDAL productDal)
         {
             _productDal = productDal;
-            
+
         }
 
         [ValidationAspect(typeof(ProductValidator))]
@@ -33,13 +33,16 @@ namespace Business.Concrete
         {
             //Bir kategoride en fazla 10 ürün olabilir
 
-            CheckIfProductCountOfCategoryCorrect(10);
+            if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success)
+            {
+                _productDal.Add(product);
+                // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
+                return new SuccessResult(Messages.ProductAdded);
+            }
 
             //business code
-            _productDal.Add(product);
-            // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
-            return new SuccessResult(Messages.ProductAdded);
 
+            return new ErrorResult();
 
         }
 
