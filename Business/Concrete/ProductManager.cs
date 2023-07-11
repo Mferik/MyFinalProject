@@ -22,11 +22,12 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDAL _productDal; //dependency injection
-
-        public ProductManager(IProductDAL productDal)
+        ICategoryService _categoryService; //kategori tablosunu ilgilendiren kuralın servisini enjekte ettim
+        
+        public ProductManager(IProductDAL productDal,ICategoryService categoryService)
         {
             _productDal = productDal;
-
+            _categoryService = categoryService;
         }
 
         [ValidationAspect(typeof(ProductValidator))]
