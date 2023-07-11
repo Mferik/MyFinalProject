@@ -21,7 +21,9 @@ namespace Business.DependencyResolves.Autofac
         {
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();  //Birisi senden IProductService isterse PRODUCTMANAGER VER
             builder.RegisterType<EfProductDal>().As<IProductDAL>().SingleInstance();
-           
+
+            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();  //Birisi senden IProductService isterse PRODUCTMANAGER VER
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDAL>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
