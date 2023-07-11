@@ -31,14 +31,10 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-
-            
             //Bir kategoride en fazla 10 ürün olabilir
-            var result = _productDal.GetAll(p=>p.CategoryId == product.CategoryId).Count;
-            if (result >= 10)
-            {
-                return new ErrorResult(Messages.ProductCountError);
-            }
+
+            CheckIfProductCountOfCategoryCorrect(10);
+
             //business code
             _productDal.Add(product);
             // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
@@ -76,6 +72,23 @@ namespace Business.Concrete
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
+        }
+
+        [ValidationAspect(typeof(ProductValidator))]
+        public IResult Update(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Bir kategoride en fazla 10 ürün olabilir
+        private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
+        {
+            var result = _productDal.GetAll(p => p.CategoryId == categoryId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.ProductCountError);
+            }
+            return new SuccessResult();
         }
     }
 }
