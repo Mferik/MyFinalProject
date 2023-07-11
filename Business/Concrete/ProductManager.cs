@@ -93,5 +93,15 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
+
+        private IResult CheckIfProductNameExists(string productName)
+        {
+            var result = _productDal.GetAll(p => p.ProductName == productName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ProductNameInvalid);
+            }
+            return new SuccessResult();
+        }
     }
 }
