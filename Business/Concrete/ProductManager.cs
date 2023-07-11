@@ -21,31 +21,30 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDAL _productDal; //dependency injection
-        ILogger _logger;
-        public ProductManager(IProductDAL productDal, ILogger logger)
+        
+        public ProductManager(IProductDAL productDal)
         {
             _productDal = productDal;
-            _logger = logger;
+            
         }
 
-        //[ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            _logger.Log();
-            try
-            {
-                //business code  
 
-                _productDal.Add(product);
-                // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
-                return new SuccessResult(Messages.ProductAdded);
-            }
-            catch (Exception exception)
+            
+            //Bir kategoride en fazla 10 ürün olabilir
+            var result = _productDal.GetAll(p=>p.CategoryId == product.CategoryId).Count;
+            if (result >= 10)
             {
-
-                _logger.Log();
+                return new ErrorResult(Messages.ProductCountError);
             }
-            return new ErrorResult();
+            //business code
+            _productDal.Add(product);
+            // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
+            return new SuccessResult(Messages.ProductAdded);
+
+
         }
 
         public IDataResult<List<Product>> GetAll()

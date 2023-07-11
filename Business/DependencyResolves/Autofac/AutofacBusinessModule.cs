@@ -21,7 +21,7 @@ namespace Business.DependencyResolves.Autofac
         {
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();  //Birisi senden IProductService isterse PRODUCTMANAGER VER
             builder.RegisterType<EfProductDal>().As<IProductDAL>().SingleInstance();
-            builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
+           
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

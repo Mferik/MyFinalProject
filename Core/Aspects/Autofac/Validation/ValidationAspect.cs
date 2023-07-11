@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.Aspects.Autofac.Validation
 {
+    //Aspect: Metodunun başında sonunda hata verdiğinde vs çalışacak olan yapı
     public class ValidationAspect : MethodInterception
     {
         private Type _validatorType;
