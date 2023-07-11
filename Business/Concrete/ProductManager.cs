@@ -33,7 +33,7 @@ namespace Business.Concrete
         {
             //Bir kategoride en fazla 10 ürün olabilir
 
-            if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success)
+            if (CheckIfProductCountOfCategoryCorrect(product.CategoryId).Success && CheckIfProductNameExists(product.ProductName).Success);
             {
                 _productDal.Add(product);
                 // return new Result(true,"Ürün Eklendi"); //Result IResult'ın bir implementasyonu olduğu için referansını tutabilir (polimorfizm)
@@ -99,7 +99,7 @@ namespace Business.Concrete
             var result = _productDal.GetAll(p => p.ProductName == productName).Any();
             if (result)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.ProductNameAlreadyExists);
             }
             return new SuccessResult();
         }
