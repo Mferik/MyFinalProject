@@ -1,16 +1,17 @@
-﻿using Core.Entities.Concrete;
-using Core.Extensions;
-using Core.Utilities.Security.Encryption;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using Core.Entities.Concrete;
+using Core.Extensions;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
-namespace Core.Utilities.Security.JWT
+namespace Core.Utilities.Security.Jwt
 {
     public class JwtHelper : ITokenHelper
     {
@@ -59,7 +60,7 @@ namespace Core.Utilities.Security.JWT
             var claims = new List<Claim>();
             claims.AddNameIdentifier(user.Id.ToString());
             claims.AddEmail(user.Email);
-            claims.AddName($"{user.FirstName} {user.LastName}");
+            claims.AddName($"{user.FirstName}");
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
 
             return claims;
